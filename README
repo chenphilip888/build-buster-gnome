@@ -80,11 +80,11 @@ Setup wifi for rpi4b: sudo nmcli dev wifi connect "SSID" password "PASSWD"
 sudo ifconfig
 sudo dpkg-reconfigure tzdata
 sudo dpkg-reconfigure locales
+sync
 sudo reboot
 sudo apt update
 sudo apt upgrade
-For tinker and rpi4b do: sudo apt autoremove
-sudo reboot
+For tinker and rpi4b do: sudo apt autoremove; sudo reboot
 glxinfo | grep OpenGL
 git clone https://github.com/glmark2/glmark2.git -b release-2020.04
 cd glmark2
