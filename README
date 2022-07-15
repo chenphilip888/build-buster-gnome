@@ -31,6 +31,21 @@ Steps to build Debian Buster gnome sdcard image:
 
    sudo dd if=./out/sdcard.img of=/dev/mmcblk0 bs=4096 conv=notrunc,fsync
 
+sudo vi etc/wpa_supplicant.conf  ( change to
+update_config=1
+country=US
+network={
+        ssid="MYNETWORK"
+        psk="secret"
+}
+
+sudo vi etc/network/interfaces ( append
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+wpa-conf /etc/wpa_supplicant.conf
+iface default inet dhcp
+
 4. cd ~/build-buster-gnome/radxa
    git clone https://github.com/radxa/u-boot --depth=1 -b stable-4.4-rockpi4
    git clone --depth=1 git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
@@ -76,15 +91,13 @@ uname -a
 lsb_release -a
 Setup internet for radxa, tinker and rk3328: plugin ehternet cable to SBC
 sudo ifconfig
-Setup wifi for rpi4b: sudo nmcli dev wifi connect "SSID" password "PASSWD"
-sudo ifconfig
 sudo dpkg-reconfigure tzdata
 sudo dpkg-reconfigure locales
-sync
-sudo reboot
 sudo apt update
 sudo apt upgrade
-For tinker and rpi4b do: sudo apt autoremove; sudo reboot
+For tinker and rpi4b do: sudo apt autoremove
+sync
+sudo reboot
 glxinfo | grep OpenGL
 git clone https://github.com/glmark2/glmark2.git -b release-2020.04
 cd glmark2
